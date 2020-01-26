@@ -73,7 +73,7 @@ class App extends Component {
       {
 
           this.state.regionTotals.map(data => (
-            <div class="BarChart-bar">
+            <div class="BarChart-bar" style={{width: data.total }}>
             {data.region}
             <span class="total"> {data.total} </span>
             </div>
