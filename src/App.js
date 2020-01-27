@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
-// console.log('test render function');
+
 
 class App extends Component {
   state = {
     regionTotals: [],
     migrants2019: [],
+    value: '',
   }
 
+
+onSelectChange = (ev) => {
+  this.setState({value: ev.target.value});
+}
 
   componentDidMount() {
     fetch("./region-total.json", { mode: 'cors', method: 'get', headers: { 'Access-Control-Allow-Origin': '*' }})
@@ -30,14 +34,15 @@ class App extends Component {
     fetch("./migrants2019.json", { mode: 'cors', method: 'get', headers: { 'Access-Control-Allow-Origin': '*' }})
       .then(response => response.json())
       .then(fulldata => {
+        
+        {/*  loop inside here, to find region + total, matched to month?  */}
+
         console.log("full json", fulldata);
         this.setState({
           migrants2019: fulldata,
         });
       });
   }
-
-
 
   render() {
 
@@ -52,8 +57,12 @@ class App extends Component {
       <p className="Header"> Select from the drop down list to see records by month. If there are no records for the month,
       data will not be displayed for that region. </p>
 
-      <select id="months" onChange="render()">
-        <option selected value> -- reported month -- </option>
+      <select
+      value={this.state.value}
+      onChange={this.onSelectChange}
+      id="months"
+      >
+        <option value> -- reported month -- </option>
         <option value="Jan">January</option>
         <option value="Feb">February</option>
         <option value="Mar">March</option>
@@ -70,17 +79,32 @@ class App extends Component {
 
       <div id="BarChart" className="BarChart">
 
-      {
+{/*DEFAULT BARS GENERATION BELOW */}
 
+       {/*{
           this.state.regionTotals.map(data => (
             <div class="BarChart-bar" style={{width: data.total }}>
             {data.region}
             <span class="total"> {data.total} </span>
             </div>
           ))
+      }*/}
 
 
-      }
+{/*BARS BY MONTH*/}
+
+      {
+         this.state.migrants2019.map(data => (
+           <div className="BarChart-bar">
+           {data['Region of Incident']}
+           <span className="total"> {data.total} </span>
+           </div>
+         ))
+     }
+
+
+
+
       </div>
 
           <div className="BarChart-max">max</div>
