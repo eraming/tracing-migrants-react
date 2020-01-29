@@ -12,6 +12,8 @@ class App extends Component {
 
 onSelectChange = (ev) => {
   this.setState({value: ev.target.value});
+  this.onlyRegionTotals();
+
 }
 
   componentDidMount() {
@@ -30,16 +32,48 @@ onSelectChange = (ev) => {
       });
   }
 
+  dataToTotals(fulldata, selectedMonth){
+    let monthly_totals = {
+      'US-Mexico Border': 0,
+      'Sub Saharan Africa': 0,
+      'Mediterranean': 0,
+      'North Africa': 0,
+      'South East Asia': 0,
+      'South Asia': 0,
+      'South America': 0,
+      'Horn of Africa': 0,
+      'Middle East': 0,
+      'Europe': 0,
+      'Central America': 0,
+    }
+    let region;
+    let dead;
+    let month;
+
+
+    for (let migrantInfo of fulldata) {
+        region = migrantInfo['Region of Incident'];
+        dead = parseFloat(migrantInfo['Number Dead']);
+        month = migrantInfo['Reported Month'];
+
+        if (region && month === selectedMonth) {
+            monthly_totals[region] += dead;
+            console.log(monthly_totals[region], region);
+        }
+      };
+
+      return monthly_totals
+  }
+
   onlyRegionTotals () {
     fetch("./migrants2019.json", { mode: 'cors', method: 'get', headers: { 'Access-Control-Allow-Origin': '*' }})
       .then(response => response.json())
       .then(fulldata => {
-        
-        {/*  loop inside here, to find region + total, matched to month?  */}
-
-        console.log("full json", fulldata);
+        let totals  = this.dataToTotals(fulldata, this.state.value)
+        console.log("this.state.value", this.state.value);
+        console.log("totals", totals);
         this.setState({
-          migrants2019: fulldata,
+          migrants2019: totals,
         });
       });
   }
@@ -79,30 +113,28 @@ onSelectChange = (ev) => {
 
       <div id="BarChart" className="BarChart">
 
-{/*DEFAULT BARS GENERATION BELOW */}
-
-       {/*{
-          this.state.regionTotals.map(data => (
-            <div class="BarChart-bar" style={{width: data.total }}>
-            {data.region}
-            <span class="total"> {data.total} </span>
-            </div>
-          ))
-      }*/}
-
-
-{/*BARS BY MONTH*/}
 
       {
-         this.state.migrants2019.map(data => (
-           <div className="BarChart-bar">
-           {data['Region of Incident']}
-           <span className="total"> {data.total} </span>
+        {/* something goes in here  totals[region] > 1 */} ? (
+         Object.keys(this.state.migrants2019).map(region => (
+
+           <div className="BarChart-bar" style={{width:this.state.migrants2019[region]}}>
+           {region}
+           <span className="total"> {this.state.migrants2019[region]} </span>
            </div>
          ))
+
+         ) : (
+
+           this.state.regionTotals.map(data => (
+             <div class="BarChart-bar" style={{width: data.total }}>
+             {data.region}
+             <span class="total"> {data.total} </span>
+             </div>
+         ))
+
+         )
      }
-
-
 
 
       </div>
