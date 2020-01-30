@@ -90,6 +90,7 @@ onSelectChange = (ev) => {
       <h1 className="Header">2019 Recorded Migrant Deaths </h1>
       <p className="Header"> Data from <a href="https://missingmigrants.iom.int/">Missing Migrants Project</a>.</p>
       <hr className="BottomLine" />
+
       <p className="Header"> Select from the drop down list to see records by month. If there are no records for the month,
       data will not be displayed for that region. </p>
 
@@ -97,6 +98,7 @@ onSelectChange = (ev) => {
       value={this.state.value}
       onChange={this.onSelectChange}
       id="months"
+      className="Header">
       >
         <option value> -- reported month -- </option>
         <option value="Jan">January</option>
@@ -124,7 +126,7 @@ onSelectChange = (ev) => {
 
     this.state.migrants2019[region] > 1 ? (
 
-     <div className="BarChart-bar" style={{width: this.state.migrants2019[region] * 7 + "px" }}>
+     <div className="BarChart-bar" style={{width: this.state.migrants2019[region] * 9 + "px" }}>
      {region}
      <span className="total"> {this.state.migrants2019[region]} </span>
      </div>
