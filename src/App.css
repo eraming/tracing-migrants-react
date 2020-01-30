@@ -104,7 +104,8 @@ hr {
   transition-duration: 0.4s;
   display: flex;
   justify-content: space-between;
-  min-width: 120px;
+  min-width: 100px;
+  max-width: 500px;
   max-height: 50px;
 }
 

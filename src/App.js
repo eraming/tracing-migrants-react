@@ -124,7 +124,7 @@ onSelectChange = (ev) => {
 
     this.state.migrants2019[region] > 1 ? (
 
-     <div className="BarChart-bar" style={{width: this.state.migrants2019[region] * 6 + "px" }}>
+     <div className="BarChart-bar" style={{width: this.state.migrants2019[region] * 7 + "px" }}>
      {region}
      <span className="total"> {this.state.migrants2019[region]} </span>
      </div>
