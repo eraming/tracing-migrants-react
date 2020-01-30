@@ -86,12 +86,13 @@ onSelectChange = (ev) => {
       <div className="App">
       <header className="App-header"> </header>
       <div className="GridContainer">
+      <div className="Header">
 
-      <h1 className="Header">2019 Recorded Migrant Deaths </h1>
-      <p className="Header"> Data from <a href="https://missingmigrants.iom.int/">Missing Migrants Project</a>.</p>
+      <h1>2019 Recorded Migrant Deaths </h1>
+      <p> Data from <a href="https://missingmigrants.iom.int/">Missing Migrants Project</a>.</p>
       <hr className="BottomLine" />
 
-      <p className="Header"> Select from the drop down list to see records by month. If there are no records for the month,
+      <p> Select from the drop down list to see records by month. If there are no records for the month,
       data will not be displayed for that region. </p>
 
       <select
@@ -114,7 +115,7 @@ onSelectChange = (ev) => {
         <option value="Nov">November</option>
         <option value="Dec">December</option>
       </select>
-
+</div> 
       <div id="BarChart" className="BarChart">
 
 
