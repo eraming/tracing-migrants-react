@@ -36,7 +36,7 @@ onSelectChange = (ev) => {
 
     let monthly_totals = {
       'US-Mexico Border': 0,
-      'Sub Saharan Africa': 0,
+      'Sub-Saharan Africa': 0,
       'Mediterranean': 0,
       'North Africa': 0,
       'South East Asia': 0,
@@ -47,6 +47,7 @@ onSelectChange = (ev) => {
       'Europe': 0,
       'Central America': 0,
     }
+
     let region;
     let dead;
     let month;
@@ -115,32 +116,37 @@ onSelectChange = (ev) => {
       <div id="BarChart" className="BarChart">
 
 
-      {
-        this.state.value ? (
-         Object.keys(this.state.migrants2019).map(region => (
+{
 
+  this.state.value ? (
 
-           <div className="BarChart-bar" style={{width:this.state.migrants2019[region]}}>
-           {region}
-           <span className="total"> {this.state.migrants2019[region]} </span>
-           </div>
+   Object.keys(this.state.migrants2019).map(region => (
 
-         ))
+    this.state.migrants2019[region] > 1 ? (
 
-         ) : (
+     <div className="BarChart-bar" style={{width: this.state.migrants2019[region] * 6 + "px" }}>
+     {region}
+     <span className="total"> {this.state.migrants2019[region]} </span>
+     </div>
 
-           this.state.regionTotals.map(data => (
-             <div class="BarChart-bar" style={{width: data.total }}>
-             {data.region}
-             <span class="total"> {data.total} </span>
-             </div>
-         ))
+   ) : null
 
-         )
-     }
+   ))
+
+   ) : (
+
+     this.state.regionTotals.map(data => (
+       <div className="BarChart-bar" style={{width: data.total }} >
+       {data.region}
+       <span className="total"> {data.total} </span>
+       </div>
+   ))
+
+   )
+}
 
       </div>
-      
+
 
           <div className="BarChart-max">max</div>
       <hr className="BottomLine" />
