@@ -33,6 +33,7 @@ onSelectChange = (ev) => {
   }
 
   dataToTotals(fulldata, selectedMonth){
+
     let monthly_totals = {
       'US-Mexico Border': 0,
       'Sub Saharan Africa': 0,
@@ -70,7 +71,7 @@ onSelectChange = (ev) => {
       .then(response => response.json())
       .then(fulldata => {
         let totals  = this.dataToTotals(fulldata, this.state.value)
-        console.log("this.state.value", this.state.value);
+        // console.log("this.state.value", this.state.value);
         console.log("totals", totals);
         this.setState({
           migrants2019: totals,
@@ -115,13 +116,15 @@ onSelectChange = (ev) => {
 
 
       {
-        {/* something goes in here  totals[region] > 1 */} ? (
+        this.state.value ? (
          Object.keys(this.state.migrants2019).map(region => (
+
 
            <div className="BarChart-bar" style={{width:this.state.migrants2019[region]}}>
            {region}
            <span className="total"> {this.state.migrants2019[region]} </span>
            </div>
+
          ))
 
          ) : (
@@ -136,8 +139,8 @@ onSelectChange = (ev) => {
          )
      }
 
-
       </div>
+      
 
           <div className="BarChart-max">max</div>
       <hr className="BottomLine" />
